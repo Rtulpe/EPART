@@ -24,7 +24,8 @@ function rds = reduce(ds, parts)
 		% shuffle samples of this class with randperm
 		shuffled = randperm(rows(selected));
 		% select proper part of shuffled class and append it to rds
-		rds = [rds; selected(shuffled(1:round(parts(clid) * columns(selected))), :)];
+		proper = selected(shuffled(1: round(parts(clid) * columns(shuffled))), :)
+		rds = [rds; proper];
   end
 
 end

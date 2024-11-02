@@ -167,29 +167,34 @@ plot2features(train, 4, 6);
 
 % First, checking with min() and max() functions to find outliers
 [minv_tr, midx_tr] = min(train)
-[maxv_tr, midx_tr] = max(train)
 [minv_ts, midx_ts] = min(test)
+[maxv_tr, midx_tr] = max(train)
 [maxv_ts, midx_ts] = max(test)
 
+% Indexes that are outliers for both sets:
+% 642, 186
+% Removing them and checking again
+train(642, :) = [];
+train(186, :) = [];
+test(642, :) = [];
+test(186, :) = [];
 
-% Looking for outliers with max()
+[minv_tr, midx_tr] = min(train)
+[minv_ts, midx_ts] = min(test)
+[maxv_tr, midx_tr] = max(train)
+[maxv_ts, midx_ts] = max(test)
 
-%train(186, :) = [];
-%test(186, :) = [];
-
-% Found using min()
-
-%train(641, :) = [];
-%test(641, :) = [];
+% RT: Seems to be clean now
 
 % after removing outliers, you can deal with the selection of TWO features for classification
 % in this case, it is enough to look at the graphs of two features and choose the ones that
 % give relatively well separated classes
 
 % RT: Plotting all possible combinations of 2 features to find the best pair:
-for i = 2:columns(train)-1
-	for j = i+1:columns(train)
-		plot2features(train, i, j);
+for i = 2:columns(test)-1
+	for j = i+1:columns(test)
+		disp(["Plotting features: ", num2str(i), " and ", num2str(j)])
+		plot2features(test, i, j);
 	end
 end
 
