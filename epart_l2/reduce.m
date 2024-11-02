@@ -20,8 +20,11 @@ function rds = reduce(ds, parts)
 	% for each class
   for clid = 1:rows(labels)
 		% select only one class samples from ds
+		selected = ds(ds(:,1) == labels(clid), :);
 		% shuffle samples of this class with randperm
+		shuffled = randperm(rows(selected));
 		% select proper part of shuffled class and append it to rds
+		rds = [rds; selected(shuffled(1:round(parts(clid) * columns(selected))), :)];
   end
 
 end
