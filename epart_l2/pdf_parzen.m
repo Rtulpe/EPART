@@ -15,25 +15,25 @@ function pdf = pdf_parzen(pts, para)
 	% YOUR CODE GOES HERE
 
 	% for each class
-  for clid=1:rows(para.labels)
+  	for clid=1:rows(para.labels)
 		% you know number of samples in this class so you can allocate
 		% intermediate matrix (it contains columns f1 f2 ... fn from diagram in instruction)
 		cltr = para.samples{clid};
-    onedpdfs = zeros(rows(para.samples{clid}), columns(para.samples{clid}));
+    	onedpdfs = zeros(rows(para.samples{clid}), columns(para.samples{clid}));
 		% don't forget to adjust Parzen window width
 		hn = para.parzenw / sqrt(rows(cltr));
 
 		% for each sample in pts
-    for ptid = 1:rows(pts)
+    	for ptid = 1:rows(pts)
 			% for each feature
-      for ftid = 1:columns(cltr)
+    		for ftid = 1:columns(cltr)
 				% fill proper column in onedpdfs with call to normpdf
-        onedpdfs(:,ftid) = normpdf(cltr(:,ftid), pts(ptid, ftid) , hn)
-      end
-			% aggregate onedpdfs into a scalar value
-			% and store it in proper element of pdf
-      pdf(ptid, clid) = mean(prod(onedpdfs, 2));
-    end
-  end
+        		onedpdfs(:,ftid) = normpdf(cltr(:,ftid), pts(ptid, ftid) , hn);
+    		end
+		% aggregate onedpdfs into a scalar value
+		% and store it in proper element of pdf
+      	pdf(ptid, clid) = mean(prod(onedpdfs, 2));
+    	end
+  	end
 
 end

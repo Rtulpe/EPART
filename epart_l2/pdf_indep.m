@@ -24,6 +24,6 @@ function pdf = pdf_indep(pts, para)
       onedpdfs(:,ftid) = normpdf(pts(:, ftid), para.mu(clid, ftid), para.sig(clid, ftid));
     end
 		% aggregate onepdfs into one column of pdf matrix
-    pdf(:, clid) = prod(onedpdfs, 2)
+    pdf(:, clid) = prod(onedpdfs, 2);
   end
 end

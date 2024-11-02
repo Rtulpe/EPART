@@ -18,7 +18,7 @@ function pdf = pdf_multi(pts, para)
 	for clid = 1:rows(para.labels)
 		% call mvnpdf with proper parameters and store result
 		% in one column of pdf
-		pdf(:, clid) = mvnpdf(pts, para.mu(clid, :), para.sig(:, :, clid))
+		pdf(:, clid) = mvnpdf(pts, para.mu(clid, :), para.sig(:, :, clid));
 	end
 
 
