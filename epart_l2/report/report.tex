@@ -1,4 +1,13 @@
-\documentclass[a4paper,12pt]{article}
+\documentclass[
+  a4paper,            % DIN A4
+  DIV=10,             % Schriftgröße und Satzspiegel
+  oneside,            % einseitiger Druck
+  BCOR=5mm,           % Bindungskorrektur
+  parskip=half,       % Halber Abstand zwischen Absätzen
+  numbers=noenddot,   % Kein Punkt hinter Kapitelnummern
+  bibtotoc,           % Literaturverzeichnis im Inhaltsverzeichnis
+  listof=totoc        % Abbildungs- und Tabellenverzeichnis im Inhaltsverzeichnis
+]{scrreprt}
 
 \usepackage{amsmath}
 \usepackage{graphicx}
@@ -15,18 +24,54 @@
 \maketitle
 \newpage
 
-\section{Point 1}
+\section*{Point 1}
+\subsection*{Task:}
+Check the data, esp. the training set.
+Outliers can change significantly computed distribution parameters, which can dramatically reduce recognition quality.
+You can try here to compare \textit{mean} and \textit{median} values, plot histogram of individual features (\textit{hist} function) …
+\\
+To remove a sample with known index \textit{idx} use expression:
+\begin{center}
+    \textit{train(idx, :) = [] ;}
+\end{center}
 
-\textbf{Check the data, esp. the training set. Outliers can change significantly computed distribution parameters,
-which can dramatically reduce recognition quality. You can try here to compare mean and median values,
-plot histogram of individual features (hist function) …
-To remove a sample with known index idx use expression:
-train(idx, :) = [] ;}
+\subsection*{Results:}
 
-\section{Point 2}
-\section{Point 3}
-\section{Point 4}
-\section{Point 5}
-\section{Point 6}
+\section*{Point 2}
+\subsection*{Task:}
+Select two features (note that you have \textit{plot2features} function supplied) and build three Bayes classifiers with different probability density computations (according to points 1-3 above).
+You should use equal a \textit{priori} probabilities of 0.125.
+\subsection*{Results:}
+
+\section*{Point 3}
+\subsection*{Task:}
+Check how the number of samples in the training set influences the classification quality (you can take for example 10\%, 25\%, 50\% of the whole training set).
+\\
+Note: an appropriate part of the samples from the training set should be drawn independently from each class; because we introduce a random element, the experiment must be repeated (minimum 5 times) and report should contain averaged results (good practice is to include not only mean value but also a standard deviation).
+\\
+Here you should implement \textit{reduce} function, which leaves the appropriate part of each class.
+At this point, the reduction applies only to the training set.
+\subsection*{Results:}
+
+\section*{Point 4}
+\subsection*{Task:}
+Check how width of the Parzen window $h_{1}$ influences the classification quality (note that this point has sense for Parzen classifier only).
+\subsection*{Results:}
+
+\section*{Point 5}
+\subsection*{Task:}
+How will the classification results change if the a \textit{priori} probability will be two times higher for black suits, i.e. (0.165, 0.085, 0.085, 0.165, 0.165, 0.085, 0.085, 0.165)?
+\\
+Note that in this case you should reduce number of red suits in the \textbf{testing set} only!
+\subsection*{Results:}
+
+\section*{Point 6}
+What is the classification quality of the 1-NN classifier (cls1nn.m) for these data?
+\\
+Don't use in this case leave-one-out method, you have large enough testing set at your disposal.
+Think about data normalization.
+If there is big difference in standard deviations between features you should normalize data before classification.
+\subsection*{Task:}
+\subsection*{Results:}
 
 \end{document}
