@@ -11,7 +11,7 @@ labels = unique(pdf_test(:,1))
 
 % what's the layout of the samples?
 % will it work?
-plot2features(pdf_test, 2, 3)
+plot2features(pdf_test, 2, 3);
 
 % check if statistics package is present
 normpdf(0, 0, 1)
@@ -122,6 +122,8 @@ labels = unique(train(:,1))
 unique(test(:,1))
 [labels'; sum(train(:,1) == labels')]
 
+% Point 1
+%
 % the first task after loading the data is checking
 % training set for outliers; to this end we usually compute
 % simple statistics: mean, median, std,
@@ -129,52 +131,73 @@ unique(test(:,1))
 % and/or plot two features at a time: plot2features
 
 [mean(train); median(train)]
-hist(train(:,1))
-plot2features(train, 4, 6)
+hist(train(:,1));
+plot2features(train, 4, 6);
 					%^^^^ just an example
 
 % to identify outliers you can use two output argument versions
 % of min and max functions
 
-[mv midx] = min(train)
+[mv midx] = min(train);
 
 % because the minimum or maximum values can be determined always,
 % it's worth to look at neighbors of the suspected sample in the training set
 
+% RT: Disabling the following code, it offsets the actual results
+% /////////////////////////////////////////////////
 % let's assume that sample 41 is suspected
-midx = 41
-train(midx-1:midx+1, :)
+%midx = 41
+%train(midx-1:midx+1, :)
 % it seems that these three rows are very similar to each other...
 % that's because 41 is evidently not an outlier index
 
 % if you're sure the midx sample should be removed:
-size(train)
-train(midx, :) = [];
-size(train)
+%size(train)
+%train(midx, :) = [];
+%size(train)
+% /////////////////////////////////////////////////
 
 % the procedure of searching for and removing outliers must be repeated
 % until no outliers exist in the training set
 
-% MY CODE, Removing outliers
+% RT: MY CODE, Finding and removing outliers
+% First, plotting 2 features at a time to find outliers
 
-% Found using max()
-train(186, :) = []
-test(186, :) = []
+
+
+% First, checking with min() and max() functions to find outliers
+[minv_tr, midx_tr] = min(train)
+[maxv_tr, midx_tr] = max(train)
+[minv_ts, midx_ts] = min(test)
+[maxv_ts, midx_ts] = max(test)
+
+
+% Looking for outliers with max()
+
+%train(186, :) = [];
+%test(186, :) = [];
 
 % Found using min()
 
-train(641, :) = []
-test(641, :) = []
+%train(641, :) = [];
+%test(641, :) = [];
 
 % after removing outliers, you can deal with the selection of TWO features for classification
 % in this case, it is enough to look at the graphs of two features and choose the ones that
 % give relatively well separated classes
 
-% after selecting features reduce both sets:
-train = train(:, [1 3 5]);
-test = test(:, [1 3 5]);
-				% ^^^ please, don't use these features!
+% RT: Plotting all possible combinations of 2 features to find the best pair:
+for i = 2:columns(train)-1
+	for j = i+1:columns(train)
+		plot2features(train, i, j);
+	end
+end
 
+% RT: After examination, I have selected 2 and 4 as the best features for classification
+
+% after selecting features reduce both sets:
+train = train(:, [1 2 4]);
+test = test(:, [1 2 4]);
 
 % POINT 2
 

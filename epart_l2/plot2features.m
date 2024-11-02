@@ -28,7 +28,7 @@ function plot2features(tset, f1, f2)
 	figure;
 	hold on;
 
-  % MY CODE
+  % RT: MY CODE
   % I have added some legend, to make more sense of what is going on
   legendEntries = cell(size(labels, 1), 1);
 
