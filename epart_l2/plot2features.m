@@ -41,7 +41,7 @@ function plot2features(tset, f1, f2)
 	end
 
   % Add the legend using the stored legend entries
-    legend(legendEntries, 'Location', 'Best');
+    legend(legendEntries, 'Location', 'northeast');
 
 	hold off;
 end
