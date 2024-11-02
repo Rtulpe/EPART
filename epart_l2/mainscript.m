@@ -191,10 +191,10 @@ test(186, :) = [];
 % give relatively well separated classes
 
 % RT: Plotting all possible combinations of 2 features to find the best pair:
-for i = 2:columns(test)-1
+for i = 2:columns(test)
 	for j = i+1:columns(test)
-		disp(["Plotting features: ", num2str(i), " and ", num2str(j)])
-		plot2features(test, i, j);
+		name = sprintf("Features %d and %d", i, j);
+		plot2features(test, i, j, name);
 	end
 end
 
@@ -245,6 +245,30 @@ rep_cnt = 5; % at least
 
 % YOUR CODE GOES HERE
 %
+
+mean_ercf = zeros(length(parts), 3);
+std_ercf = zeros(length(parts), 3);
+local_ercf = zeros(3, rep_cnt);
+
+for partid = 1:columns(parts)
+	part_local = parts(partid);
+	for rep = 1:rep_cnt
+		red_train = reduce(train, part_local * ones(1, 8));
+		pdfindep_para = para_indep(red_train);
+		pdfmulti_para = para_multi(red_train);
+		pdfparzen_para = para_parzen(red_train, 0.001);
+
+		local_ercf(1, rep) = mean(bayescls(test(:,2:end), @pdf_indep, pdfindep_para) != test(:,1));
+		local_ercf(2, rep) = mean(bayescls(test(:,2:end), @pdf_multi, pdfmulti_para) != test(:,1));
+		local_ercf(3, rep) = mean(bayescls(test(:,2:end), @pdf_parzen, pdfparzen_para) != test(:,1));
+	end
+
+	mean_ercf(partid, :) = mean(local_ercf, 2)';
+	std_ercf(partid, :) = std(local_ercf, 0, 2)';
+end
+
+mean_ercf
+std_ercf
 
 % note that for given experiment you should reduce all classes in the training
 % set with the same reduction coefficient; assuming that class_count is the

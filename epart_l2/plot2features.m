@@ -1,4 +1,4 @@
-function plot2features(tset, f1, f2)
+function plot2features(tset, f1, f2, name="")
 % Plots tset samples on a 2-dimensional diagram
 %	using features f1 and f2
 % tset - training set; the first column contains class label
@@ -28,9 +28,9 @@ function plot2features(tset, f1, f2)
 	figure;
 	hold on;
 
-  % RT: MY CODE
-  % I have added some legend, to make more sense of what is going on
-  legendEntries = cell(size(labels, 1), 1);
+  	% RT: MY CODE
+  	% I have added some legend, to make more sense of what is going on
+  	legendEntries = cell(size(labels, 1), 1);
 
 	for i=1:size(labels,1)
 		idx = tset(:,1) == labels(i);
@@ -40,8 +40,12 @@ function plot2features(tset, f1, f2)
     legendEntries{i} = ['Class ', num2str(labels(i))];
 	end
 
-  % Add the legend using the stored legend entries
+  	% Add the legend using the stored legend entries
     legend(legendEntries, 'Location', 'northeast');
+	% RT: Adding title to the plot, if provided
+	if ~isempty(name)
+        title(name);
+    end
 
 	hold off;
 end
