@@ -1,6 +1,6 @@
 % RT: Function to check 1NN classification quality
 function quality = check_1nn(train, test)
-	quality = 0
+	quality = 0;
 	for testid = 1:rows(test)
 		test_instance = test(testid, 2:end);
 

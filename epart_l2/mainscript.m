@@ -205,8 +205,8 @@ end
 % RT: After examination, I have selected 2 and 4 as the best features for classification
 
 % after selecting features reduce both sets:
-train = train(:, [1 2 4]);
-test = test(:, [1 2 4]);
+train = train(:, [1, 2, 4]);
+test = test(:, [1, 2, 4]);
 
 % POINT 2
 
@@ -220,6 +220,7 @@ base_ercf = zeros(1,3);
 base_ercf(1) = mean(bayescls(test(:,2:end), @pdf_indep, pdfindep_para) != test(:,1));
 base_ercf(2) = mean(bayescls(test(:,2:end), @pdf_multi, pdfmulti_para) != test(:,1));
 base_ercf(3) = mean(bayescls(test(:,2:end), @pdf_parzen, pdfparzen_para) != test(:,1));
+disp("Base error rates for independent, multi and parzen classifiers:");
 base_ercf
 
 % before moving to point 3 it would be wise to
@@ -267,11 +268,13 @@ for partid = 1:columns(parts)
 		local_ercf(3, rep) = mean(bayescls(test(:,2:end), @pdf_parzen, red_pdfparzen_para) != test(:,1));
 	end
 
-	mean_ercf(partid, :) = mean(local_ercf, 2)';
+	mean_ercf(partid, :) = mean(local_ercf, 2);
 	std_ercf(partid, :) = std(local_ercf, 0, 2)';
 end
 
+disp("Mean of ercf for independent, multi and parzen classifiers:");
 mean_ercf
+disp("Standard deviation of ercf for independent, multi and parzen classifiers:");
 std_ercf
 
 % note that for given experiment you should reduce all classes in the training
@@ -314,15 +317,23 @@ parts = [1.0 0.5 0.5 1.0 1.0 0.5 0.5 1.0];
 
 red_test = reduce(test, parts);
 
-red_ercf = zeros(1,3);
-red_ercf(1) = mean(bayescls(red_test(:,2:end), @pdf_indep, pdfindep_para) != red_test(:,1));
-red_ercf(2) = mean(bayescls(red_test(:,2:end), @pdf_multi, pdfmulti_para) != red_test(:,1));
-red_ercf(3) = mean(bayescls(red_test(:,2:end), @pdf_parzen, pdfparzen_para) != red_test(:,1));
+red_ercf = zeros(3,5);
+
+% RT: Given the random nature of the reduction, I will repeat the experiment 5 times
+for rep = 1:5
+	red_ercf(1, rep) = mean(bayescls(red_test(:,2:end), @pdf_indep, pdfindep_para) != red_test(:,1));
+	red_ercf(2, rep) = mean(bayescls(red_test(:,2:end), @pdf_multi, pdfmulti_para) != red_test(:,1));
+	red_ercf(3, rep) = mean(bayescls(red_test(:,2:end), @pdf_parzen, pdfparzen_para) != red_test(:,1));
+end
+
+% calculate mean to 1x3 vector
+mean_red_ercf = mean(red_ercf, 2)';
 
 % RT: We can use compare with previously obtained base_ercf to see if the
 % reduction of the test set had any effect on the results
 disp("Difference between base and reduced test set error rates:");
-base_ercf-red_ercf
+base_ercf
+mean_red_ercf
 
 
 % POINT 6
