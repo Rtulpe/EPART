@@ -1,12 +1,12 @@
 % tiny data file to verify pdf functions
 load pdf_test.txt
-size(pdf_test)
+size(pdf_test);
 
 % how many classes are there?
-labels = unique(pdf_test(:,1))
+labels = unique(pdf_test(:,1));
 
 % how many samples are in each class?
-[labels'; sum(pdf_test(:,1) == labels')]
+[labels'; sum(pdf_test(:,1) == labels')];
 		  % ^^^ how does this expression work?
 
 % what's the layout of the samples?
@@ -14,13 +14,13 @@ labels = unique(pdf_test(:,1))
 plot2features(pdf_test, 2, 3);
 
 % check if statistics package is present
-normpdf(0, 0, 1)
+normpdf(0, 0, 1);
 % it can work directly - nothing to be done
 % it can be installed but not loaded - pkg load statistics
 % it can be not installed at all - use __normpdf function provided instead
 
 
-pdfindep_para = para_indep(pdf_test)
+pdfindep_para = para_indep(pdf_test);
 % para_indep indep is already implemented; it should give:
 
 % pdfindep_para =
@@ -37,7 +37,7 @@ pdfindep_para = para_indep(pdf_test)
 
 % now you have to implement pdf_indep and then verify it
 
-pi_pdf = pdf_indep(pdf_test([2 7 12 17],2:end), pdfindep_para)
+pi_pdf = pdf_indep(pdf_test([2 7 12 17],2:end), pdfindep_para);
 
 %pi_pdf =
 %  1.4700e+000  4.5476e-007
@@ -47,7 +47,7 @@ pi_pdf = pdf_indep(pdf_test([2 7 12 17],2:end), pdfindep_para)
 
 % multivariate normal distribution - parameters ...
 
-pdfmulti_para = para_multi(pdf_test)
+pdfmulti_para = para_multi(pdf_test);
 
 %pdfmulti_para =
 %  scalar structure containing the fields:
@@ -67,7 +67,7 @@ pdfmulti_para = para_multi(pdf_test)
 
 % ... and probability density function (use mvnpdf in pdf_multi)
 
-pm_pdf = pdf_multi(pdf_test([2 7 12 17],2:end), pdfmulti_para)
+pm_pdf = pdf_multi(pdf_test([2 7 12 17],2:end), pdfmulti_para);
 
 %pm_pdf =
 %  7.9450e-001  6.5308e-017
@@ -76,7 +76,7 @@ pm_pdf = pdf_multi(pdf_test([2 7 12 17],2:end), pdfmulti_para)
 %  4.5833e-006  2.8928e+000
 
 % parameters for Parzen window approximation
-pdfparzen_para = para_parzen(pdf_test, 0.5)
+pdfparzen_para = para_parzen(pdf_test, 0.5);
 									 % ^^^ window width
 
 %pdfparzen_para =
@@ -103,7 +103,7 @@ pdfparzen_para = para_parzen(pdf_test, 0.5)
 
 % now you have to implement pdf_parzen and then verify it
 
-pp_pdf = pdf_parzen(pdf_test([2 7 12 17],2:end), pdfparzen_para)
+pp_pdf = pdf_parzen(pdf_test([2 7 12 17],2:end), pdfparzen_para);
 
 %pp_pdf =
 %  9.7779e-001  6.1499e-008
@@ -161,13 +161,16 @@ plot2features(train, 4, 6);
 % until no outliers exist in the training set
 
 % RT: MY CODE, Finding and removing outliers
-% First, plotting 2 features at a time to find outliers
+% First, doing initial plot to see if there are any outliers
 
+plot2features(train, 2, 3, "Outlier in train set")
+plot2features(test, 2, 3, "Outlier in test set")
 
-
-% First, checking with min() and max() functions to find outliers
+% Then, checking with min() and max() functions to find outliers
+disp("Min check for train and test:");
 [minv_tr, midx_tr] = min(train)
 [minv_ts, midx_ts] = min(test)
+disp("Max check for train and test:");
 [maxv_tr, midx_tr] = max(train)
 [maxv_ts, midx_ts] = max(test)
 
@@ -179,6 +182,7 @@ train(186, :) = [];
 test(642, :) = [];
 test(186, :) = [];
 
+disp("Second check for train and test:");
 [minv_tr, midx_tr] = min(train)
 [minv_ts, midx_ts] = min(test)
 [maxv_tr, midx_tr] = max(train)
