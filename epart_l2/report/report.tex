@@ -22,6 +22,7 @@
 \RequirePackage{graphicx}           % Include graphics to document
 \usepackage{float}                  % Better image placement
 \RequirePackage{subfig}             % Multiple Pictures next to each other
+\RequirePackage[top=1cm, right=1.5cm, bottom=2cm, left=2cm]{geometry}           % Change the page margins
 
 % orphans and widows are typographically bad
 \clubpenalty=10000
@@ -51,14 +52,34 @@ To remove a sample with known index \textit{idx} use expression:
 
 \subsection*{Results:}
 
+The class distribution was found as follows:
+\includenamedimage[width=0.5\textwidth]{figure4.png}{Class distribution histogram}
+
+The classes appear to be uniformly distributed, which is preferable.
+Next, the mean and the median values of the training set were calculated:
+
+\includenamedimage[width=\textwidth]{figure5.png}{Train set mean(top) and median(bottom) values}
+
+Usually, the mean and the median values should not differ significantly, but we can see several orders of magnitude difference in several features.
+This indicates that there are outliers in the data.
+Therefore, an initial feature plot was created to identify the outliers:
 
 \includetwoimages[width=0.5\textwidth]{figure1.png}{Outlier in top right}{figure2.png}{Outlier in top left}{Outliers found}
 
+While the plot for both training and testing sets clearly shows the outliers, it is difficult to pinpoint them graphically.
+Thus, using \textit{min} and \textit{max} functions, 2 outliers, namely elements 642 and 186, same in the both sets, were identified and removed.
+Further analysis did not reveal any other outliers.
 \section*{Point 2}
 \subsection*{Task:}
 Select two features (note that you have \textit{plot2features} function supplied) and build three Bayes classifiers with different probability density computations (according to points 1-3 above).
 You should use equal a \textit{priori} probabilities of 0.125.
 \subsection*{Results:}
+The following features were selected by plotting all possible combinations, and looking for the most distinct classes:
+\includenamedimage[width=0.5\textwidth]{figure3.png}{Features 2 and 4 shown the most distinct classes}
+While there is some overlap, the classes are quite distinct.
+This setup gave the following base error rates:
+\includenamedimage[width=0.6\textwidth]{figure6.png}{Base error rates, with Parzen window width $h_{1} = 0.001$}
+The error rates are quite low, which is expected, given the classes were quite distinct.
 
 \section*{Point 3}
 \subsection*{Task:}
@@ -70,10 +91,21 @@ Here you should implement \textit{reduce} function, which leaves the appropriate
 At this point, the reduction applies only to the training set.
 \subsection*{Results:}
 
+After implementing the \textit{reduce} function, the 3 classifiers were tested with 0.1, 0.25, and 0.5 of the training set.
+General assumption would be that the more data is used, the lower the mean error rate and the standard deviation:
+\includenamedimage[width=0.7\textwidth]{figure7.png}{Mean error rates as well as the standard deviation over 5 runs}
+The assumption was correct, as with more data, the error rate decreased as well as the standard deviation.
 \section*{Point 4}
 \subsection*{Task:}
 Check how width of the Parzen window $h_{1}$ influences the classification quality (note that this point has sense for Parzen classifier only).
 \subsection*{Results:}
+
+The initial assumption would be that too small or too large window width would result in a higher error rate, due to overfitting or underfitting:
+
+\includenamedimage[width=0.7\textwidth]{figure8.png}{Parzen resolution, given $h_{1} = [0.0001, 0.0005, 0.001, 0.005, 0.01]$}
+
+Contrary to the previously used $h_{1} = 0.001$, the $h_{1} = 0.0005$ performed slightly better.
+However, the initial assumption was correct, as the smallest and largest window widths performed worse.
 
 \section*{Point 5}
 \subsection*{Task:}
@@ -82,6 +114,13 @@ How will the classification results change if the a \textit{priori} probability 
 Note that in this case you should reduce number of red suits in the \textbf{testing set} only!
 \subsection*{Results:}
 
+Given the random nature of the reduce function, the error rate was averaged over 5 runs.
+These were the results:
+\includenamedimage[width=0.7\textwidth]{figure9.png}{Difference between the base error rate and the reduced red suits one}
+
+The results were mixed.
+While the error rate for the independent and the multivariate classifiers decreased, the Parzen classifier performed worse.
+This could be due to the fact that the Parzen classifier is more sensitive to the changes in the \textit{priori} probabilities, or perhaps the window width was not optimal.
 \section*{Point 6}
 What is the classification quality of the 1-NN classifier (cls1nn.m) for these data?
 \\
@@ -90,5 +129,9 @@ Think about data normalization.
 If there is big difference in standard deviations between features you should normalize data before classification.
 \subsection*{Task:}
 \subsection*{Results:}
+Since the datasets were small enough to quickly perform the 1-NN classification, both the normalized and the non-normalized data were tested.
+The normalization method used was standardization, here are the results:
+\includenamedimage[width=0.4\textwidth]{figure10.png}{1-NN classification quality}
+While the normalized data performed slightly better, the difference was in a single percentage point.
 
 \end{document}
