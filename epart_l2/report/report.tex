@@ -22,7 +22,7 @@
 \RequirePackage{graphicx}           % Include graphics to document
 \usepackage{float}                  % Better image placement
 \RequirePackage{subfig}             % Multiple Pictures next to each other
-\RequirePackage[top=1cm, right=1.5cm, bottom=2cm, left=2cm]{geometry}           % Change the page margins
+\RequirePackage[top=1cm, right=1.5cm, bottom=2cm, left=1.5cm]{geometry}           % Change the page margins
 
 % orphans and widows are typographically bad
 \clubpenalty=10000
@@ -129,9 +129,12 @@ Think about data normalization.
 If there is big difference in standard deviations between features you should normalize data before classification.
 \subsection*{Task:}
 \subsection*{Results:}
+The standard deviation of the features 2 and 4 of the training set:
+\includenamedimage[width=0.35\textwidth]{figure11.png}{Standard deviation of features 2(right) and 4(left) of the training set}
+Which has shown some difference between the features.
 Since the datasets were small enough to quickly perform the 1-NN classification, both the normalized and the non-normalized data were tested.
 The normalization method used was standardization, here are the results:
-\includenamedimage[width=0.4\textwidth]{figure10.png}{1-NN classification quality}
+\includenamedimage[width=0.35\textwidth]{figure10.png}{1-NN classification quality}
 While the normalized data performed slightly better, the difference was in a single percentage point.
 
 \end{document}
