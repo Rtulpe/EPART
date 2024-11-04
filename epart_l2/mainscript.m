@@ -286,6 +286,11 @@ parzen_res = zeros(1, columns(parzen_widths));
 % YOUR CODE GOES HERE
 %
 
+for widthid = 1:length(parzen_widths)
+	pdfparzen_para = para_parzen(train, parzen_widths(widthid));
+	parzen_res(widthid) = mean(bayescls(test(:,2:end), @pdf_parzen, pdfparzen_para) != test(:,1));
+end
+
 [parzen_widths; parzen_res]
 % Plots are sometimes better than numerical results
 semilogx(parzen_widths, parzen_res)
@@ -311,3 +316,16 @@ std(train(:,2:end))
 
 % YOUR CODE GOES HERE
 %
+
+% RT: Well, we can try both normalized and non-normalized data to see if it makes a difference
+
+% First, checking for regular data
+
+disp("Regular data 1NN quality:");
+check_1nn(train, test)
+
+% Now, normalizing the data
+norm_train = normalize_data(train);
+norm_test = normalize_data(test);
+disp("Normalized data 1NN quality:");
+check_1nn(norm_train, norm_test)
