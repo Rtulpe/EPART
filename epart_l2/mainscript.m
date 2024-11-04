@@ -254,13 +254,13 @@ for partid = 1:columns(parts)
 	part_local = parts(partid);
 	for rep = 1:rep_cnt
 		red_train = reduce(train, part_local * ones(1, 8));
-		pdfindep_para = para_indep(red_train);
-		pdfmulti_para = para_multi(red_train);
-		pdfparzen_para = para_parzen(red_train, 0.001);
+		red_pdfindep_para = para_indep(red_train);
+		red_pdfmulti_para = para_multi(red_train);
+		red_pdfparzen_para = para_parzen(red_train, 0.001);
 
-		local_ercf(1, rep) = mean(bayescls(test(:,2:end), @pdf_indep, pdfindep_para) != test(:,1));
-		local_ercf(2, rep) = mean(bayescls(test(:,2:end), @pdf_multi, pdfmulti_para) != test(:,1));
-		local_ercf(3, rep) = mean(bayescls(test(:,2:end), @pdf_parzen, pdfparzen_para) != test(:,1));
+		local_ercf(1, rep) = mean(bayescls(test(:,2:end), @pdf_indep, red_pdfindep_para) != test(:,1));
+		local_ercf(2, rep) = mean(bayescls(test(:,2:end), @pdf_multi, red_pdfmulti_para) != test(:,1));
+		local_ercf(3, rep) = mean(bayescls(test(:,2:end), @pdf_parzen, red_pdfparzen_para) != test(:,1));
 	end
 
 	mean_ercf(partid, :) = mean(local_ercf, 2)';
@@ -304,6 +304,21 @@ parts = [1.0 0.5 0.5 1.0 1.0 0.5 0.5 1.0];
 
 % YOUR CODE GOES HERE
 %
+
+% RT: I am not quite sure what to do with apriori vector, but I can use
+% parts vector to reduce the test set
+
+red_test = reduce(test, parts);
+
+red_ercf = zeros(1,3);
+red_ercf(1) = mean(bayescls(red_test(:,2:end), @pdf_indep, pdfindep_para) != red_test(:,1));
+red_ercf(2) = mean(bayescls(red_test(:,2:end), @pdf_multi, pdfmulti_para) != red_test(:,1));
+red_ercf(3) = mean(bayescls(red_test(:,2:end), @pdf_parzen, pdfparzen_para) != red_test(:,1));
+
+% RT: We can use compare with previously obtained base_ercf to see if the
+% reduction of the test set had any effect on the results
+disp("Difference between base and reduced test set error rates:");
+base_ercf-red_ercf
 
 
 % POINT 6
