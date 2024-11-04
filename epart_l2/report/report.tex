@@ -1,3 +1,4 @@
+% Preambule
 \documentclass[
   a4paper,            % DIN A4
   DIV=10,             % Schriftgröße und Satzspiegel
@@ -8,12 +9,25 @@
   bibtotoc,           % Literaturverzeichnis im Inhaltsverzeichnis
   listof=totoc        % Abbildungs- und Tabellenverzeichnis im Inhaltsverzeichnis
 ]{scrreprt}
+\usepackage{./convenience}
 
 \usepackage{amsmath}
 \usepackage{graphicx}
 \usepackage{hyperref}
 \usepackage{listings}
 \usepackage{xcolor}
+
+\counterwithout{figure}{section}
+
+\RequirePackage{graphicx}           % Include graphics to document
+\usepackage{float}                  % Better image placement
+\RequirePackage{subfig}             % Multiple Pictures next to each other
+
+% orphans and widows are typographically bad
+\clubpenalty=10000
+\widowpenalty=10000
+
+% Document
 
 \title{EPART Lab 2 Report}
 \author{Rustenis Tolpeznikas}
@@ -36,6 +50,9 @@ To remove a sample with known index \textit{idx} use expression:
 \end{center}
 
 \subsection*{Results:}
+
+
+\includetwoimages[width=0.5\textwidth]{figure1.png}{Outlier in top right}{figure2.png}{Outlier in top left}{Outliers found}
 
 \section*{Point 2}
 \subsection*{Task:}
