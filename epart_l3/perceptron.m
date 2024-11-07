@@ -35,7 +35,8 @@ function [sepplane mispos misneg] = perceptron(pclass, nclass)
 
   %%% YOUR CODE GOES HERE %%%
   %% You should:
-  %% 1. Compute the numbers of false positives and false negatives
+  %% 1. Compute the numbers of misclassified positives samples
+  %% and the number of misclassified negative samples
 
   mispos = nPos;
   misneg = nNeg;
