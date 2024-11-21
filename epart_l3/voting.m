@@ -2,14 +2,18 @@ function votes = voting(tset, clsmx)
 % tset - matrix containing test data; one row represents one sample
 % clsmx - voting committee matrix
 %	clsmx(:,1) contains positive class label
-%	clsmx(:,2) contains negative class label
+%	clsmx(:,2) contains negative class label or -1 for ovr ensemble
 %	clsmx(:,3) is "augmented dimension" coefficient (bias of sep. hyperplane)
 %	clsmx(:,4:end) are regular separating hyperplane coefficients
 % votes - output matrix of votes cast by all one-versus-one classifiers
 
 	% get column vector of all positive labels present in the first two columns 
 	% of voting ensemble
-	labels = unique(clsmx(:,1:2)(:));
+	if clsmx(1,2) == -1
+		labels = clsmx(:,1);
+	else
+		labels = unique(clsmx(:,1:2)(:));
+	endif
 
 	% prepare voting result
 	votes = zeros(rows(tset), rows(labels));
@@ -29,6 +33,10 @@ function votes = voting(tset, clsmx)
 		%   increase number of votes for positive class by one
 		votes(res >= 0, pid) += 1;
 
+		if clsmx(:,2) == -1
+			continue;
+		endif
+		
 		% find index of positive label of this classifier
 		nid = find(labels == clsmx(i,2));
 

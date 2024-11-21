@@ -1,4 +1,4 @@
-function ovrsp = trainOVRensemble(tset, tlab, htrain)
+function [ovrsp sperrors] = trainOVRensemble(tset, tlab, htrain)
 % Trains a set of linear classifiers (one versus rest)
 % on the training set using trainSelect function
 % tset - training set samples
@@ -8,8 +8,11 @@ function ovrsp = trainOVRensemble(tset, tlab, htrain)
 %   the first column contains positive class label
 %   the second column contains -1 value
 %   columns (3:end) contain separating plane coefficients
+% sperrors - error coefficient of individual classifiers
+% computed on the training set
 
   labels = unique(tlab);
+  sperrors = zeros(rows(labels), 1);
   
   ovrsp = zeros(rows(labels), 2 + 1 + columns(tset));
   
@@ -25,9 +28,8 @@ function ovrsp = trainOVRensemble(tset, tlab, htrain)
 	% train 5 classifiers and select the best one
     [sp misp misn] = trainSelect(posSamples, negSamples, 5, htrain);
 	
-	% what to do with errors?
-	% it would be wise to add additional output argument
-	% to return error coefficients
+	% what to do with errors? - store in sperrors
+    sperrors(i) = (misp + misn) / rows(tset);
 	
     % store the separating plane coefficients (this is our classifier)
 	% in ovr matrix

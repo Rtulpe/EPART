@@ -1,4 +1,4 @@
-function [sepplane mispos misneg] = perceptron(pclass, nclass)
+function [sepplane mispos misneg] = perceptron_fixed(pclass, nclass)
 % Computes separating plane (linear classifier) using
 % perceptron method.
 % pclass - 'positive' class (one row contains one sample)
@@ -23,7 +23,7 @@ function [sepplane mispos misneg] = perceptron(pclass, nclass)
     % sum(misclassified) % just for debugging
     %% 2. Compute separating plane correction 
     %%		This is sum of misclassified samples coordinate times learning rate 
-    delta = sum(tset(misclassified, :),1) / sqrt(i);
+    delta = sum(tset(misclassified, :),1);
     %% 3. Modify solution (i.e. sepplane)
     sepplane += delta;
 

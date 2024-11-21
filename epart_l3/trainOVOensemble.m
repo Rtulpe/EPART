@@ -1,4 +1,4 @@
-function ovosp = trainOVOensemble(tset, tlab, htrain)
+function [ovosp sperrors] = trainOVOensemble(tset, tlab, htrain)
 % Trains a set of linear classifiers (one versus one class)
 % on the training set using trainSelect function
 % tset - training set samples
@@ -8,9 +8,11 @@ function ovosp = trainOVOensemble(tset, tlab, htrain)
 %   the first column contains positive class label
 %   the second column contains negative class label
 %   columns (3:end) contain separating plane coefficients
+% sperrors - upper triangular matrix containing error coefficients of
+% individual linear classifiers on the training set
 
   labels = unique(tlab);
-  
+  sperrors = zeros(rows(labels));
   % nchoosek produces all possible unique pairs of labels
   % that's exactly what we need for ovo classifier
   pairs = nchoosek(labels, 2);
@@ -27,7 +29,8 @@ function ovosp = trainOVOensemble(tset, tlab, htrain)
 	% train 5 classifiers and select the best one
     [sp misp misn] = trainSelect(posSamples, negSamples, 5, htrain);
 	
-	% what to do with errors?
+	% what to do with errors? - store in sperrros
+    sperrors(pairs(i, 1), pairs(i, 2)) = (misp + misn) / (rows(posSamples) + rows(negSamples));
 	% it would be wise to add additional output argument
 	% to return error coefficients
 	

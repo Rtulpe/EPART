@@ -359,3 +359,15 @@ norm_train = normalize_data(train);
 norm_test = normalize_data(test);
 disp("Normalized data 1NN quality:");
 check_1nn(norm_train, norm_test)
+
+parzen_widths = [0.001, 0.005, 0.01, 0.05, 0.1, 0.5, 1];
+parzen_res = zeros(1, columns(parzen_widths));
+
+for widthid = 1:length(parzen_widths)
+	pdfparzen_para = para_parzen(norm_train, parzen_widths(widthid));
+	parzen_res(widthid) = mean(bayescls(norm_test(:,2:end), @pdf_parzen, pdfparzen_para) != norm_test(:,1));
+end
+
+[parzen_widths; parzen_res]
+% Plots are sometimes better than numerical results
+semilogx(parzen_widths, parzen_res)
