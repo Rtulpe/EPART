@@ -1,0 +1,32 @@
+% Show a single picture
+% @param parameters for \includegraphics
+% \textwidth
+% @param name of the file (without format extenstion), used in label as well
+% @param caption text
+\newcommand\includenamedimage[3][]{
+    \begin{figure}[H]
+      \centering
+      \includegraphics[#1]{#2}
+      \caption{#3}
+      \label{fig:#2}
+    \end{figure}
+}
+
+%
+% Show two pictures side by side
+%
+\newcommand\includetwoimages[6][]{
+    \begin{figure}[H]
+      \centering
+      \subfloat[#3]{
+        \includegraphics[#1]{#2}
+        \label{fig:#2}
+      }
+      \subfloat[#5]{
+        \includegraphics[#1]{#4}
+        \label{fig:#4}
+      }
+      \caption{#6}
+      \label{fig:#2and#4}
+    \end{figure}
+}

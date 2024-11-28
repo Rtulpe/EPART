@@ -1,0 +1,53 @@
+% Preambule
+\documentclass[
+  a4paper,            % DIN A4
+  DIV=10,             % Schriftgröße und Satzspiegel
+  oneside,            % einseitiger Druck
+  BCOR=5mm,           % Bindungskorrektur
+  parskip=half,       % Halber Abstand zwischen Absätzen
+  numbers=noenddot,   % Kein Punkt hinter Kapitelnummern
+  bibtotoc,           % Literaturverzeichnis im Inhaltsverzeichnis
+  listof=totoc        % Abbildungs- und Tabellenverzeichnis im Inhaltsverzeichnis
+]{scrreprt}
+\usepackage{./convenience}
+
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{xcolor}
+
+\counterwithout{figure}{section}
+
+\RequirePackage{graphicx}           % Include graphics to document
+\usepackage{float}                  % Better image placement
+\RequirePackage{subfig}             % Multiple Pictures next to each other
+\RequirePackage[top=1cm, right=1.5cm, bottom=2cm, left=1.5cm]{geometry}           % Change the page margins
+
+% orphans and widows are typographically bad
+\clubpenalty=10000
+\widowpenalty=10000
+
+% Document
+
+\title{EPART Lab 3 Report}
+\author{Rustenis Tolpeznikas}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+\newpage
+
+\section*{Part 1}
+\section*{Part 2}
+\section*{Part 3}
+\section*{Part 4}
+\section*{Part 5}
+\section*{Part 6}
+\section*{Part 7}
+\section*{Part 8}
+\section*{Part 9}
+\section*{Part 10}
+
+\end{document}
