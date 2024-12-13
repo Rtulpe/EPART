@@ -20,8 +20,29 @@ tstl += 1;
 
 % compute and perform PCA transformation
 [mu trmx] = prepTransform(tvec, comp_count);
+
+% PCA transform
 tvec = pcaTransform(tvec, mu, trmx);
 tstv = pcaTransform(tstv, mu, trmx);
+
+% Perceptron Graph:
+plot_zeros = tvec(tlab == 1, 1:2)(1:40, :);
+plot_ones = tvec(tlab == 2, 1:2)(1:40, :);
+pclass = plot_zeros;
+nclass = plot_ones;
+
+[sepplane, mispos, misneg] = perceptron_fixed(pclass, nclass);
+
+plot(plot_zeros(:,1), plot_zeros(:,2), "r^", plot_ones(:,1), plot_ones(:,2), "bo")
+hold on
+xs = [-10, 10];
+ys = (-sepplane(2) * x_vals - sepplane(1)) / sepplane(3);
+plot(xs, ys, 'LineWidth', 2, 'b:')
+
+% Add legend
+legend('Number 0', 'Number 1', 'Separating Line', 'Location', 'northeast')
+
+hold off
 
 % Now experiment with the learning rate
 % It make sense to use "easy" (0 vs. 1) and "difficult" (4 vs. 9) cases.
@@ -152,11 +173,3 @@ compErrors(cfmx)
 %    9.6613e-01   5.1667e-03   2.8700e-02   9.4390e-01   9.6000e-03   4.6500e-02
 
 % Think about improving your classifier further :)
-% RT: Possible improvement using LDA instead of PCA
-tveclda = ldaTransform(tvec, tlab, mu, comp_count);
-tstvlda = ldaTransform(tstv, tstl, mu, comp_count);
-
-disp('LDA OVO40 Train')
-clab = unamvoting(tveclda, ovo);
-cfmx = confMx(tlablda, clab)
-compErrors(cfmx)
