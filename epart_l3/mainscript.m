@@ -65,6 +65,7 @@ end
 save ovo40errors.txt ovo40errors
 
 % check your ensemble on train set
+disp('OVO40 Train')
 clab = unamvoting(tvec, ovo);
 cfmx = confMx(tlab, clab)
 compErrors(cfmx)
@@ -72,6 +73,7 @@ compErrors(cfmx)
 % Training   0.914700   0.055683   0.029617
 
 % repeat on test set
+disp('OVO40 Test')
 clab = unamvoting(tstv, ovo);
 cfmx = confMx(tstl, clab)
 compErrors(cfmx)
@@ -85,6 +87,7 @@ compErrors(cfmx)
 [ovr ovr40errors] = trainOVRensemble(tvec, tlab, @perceptron_fixed);
 save ovr40errors.txt ovr40errors
 
+disp('OVR40 Train')
 clab = unamvoting(tvec, ovr);
 cfmx = confMx(tlab, clab)
 compErrors(cfmx)
@@ -92,6 +95,7 @@ compErrors(cfmx)
 % ovr training set cfs              %testing set cfs
 % 0.733967   0.044417   0.221617    0.739200   0.042500   0.218300
 
+disp('OVR40 Test')
 clab = unamvoting(tstv, ovr);
 cfmx = confMx(tstl, clab)
 compErrors(cfmx)
@@ -101,17 +105,21 @@ trainExp = expandFeatures(tvec);
 testExp = expandFeatures(tstv);
 
 % Train and test the OVO ensemble on the expanded features
-%[ovoExp ovo860errors] = trainOVOensemble(trainExp, tlab, @perceptron_fixed);
+if exist('ovoExp.txt', 'file') == 0
+  [ovoExp ovo860errors] = trainOVOensemble(trainExp, tlab, @perceptron_fixed);
+  save ovo860errors.txt ovo860errors
+  save ovoExp.txt ovoExp
+end
 load ovoExp.txt;
 load ovo860errors.txt;
-%save ovo860errors.txt ovo860errors
-%save ovoExp.txt ovoExp
 
 % train
+disp('OVO860 Train')
 clab = unamvoting(trainExp, ovoExp);
 cfmx = confMx(tlab, clab)
 compErrors(cfmx)
 % test
+disp('OVO860 Test')
 clab = unamvoting(testExp, ovoExp);
 cfmx = confMx(tstl, clab)
 compErrors(cfmx)
@@ -121,17 +129,21 @@ compErrors(cfmx)
 
 
 % Train and test the OVR ensemble on the expanded features
-%[ovrExp ovr860errors] = trainOVRensemble(trainExp, tlab, @perceptron_fixed);
-%save ovr860errors.txt ovr860errors
-%save ovrExp.txt ovoExp
+if exist('ovrExp.txt', 'file') == 0
+  [ovrExp ovr860errors] = trainOVRensemble(trainExp, tlab, @perceptron_fixed);
+  save ovr860errors.txt ovr860errors
+  save ovrExp.txt ovrExp
+end
 load ovrExp.txt;
 load ovr860errors.txt;
 
 % train
+disp('OVR860 Train')
 clab = unamvoting(trainExp, ovrExp);
 cfmx = confMx(tlab, clab)
 compErrors(cfmx)
 % test
+disp('OVR860 Test')
 clab = unamvoting(testExp, ovrExp);
 cfmx = confMx(tstl, clab)
 compErrors(cfmx)
@@ -140,3 +152,11 @@ compErrors(cfmx)
 %    9.6613e-01   5.1667e-03   2.8700e-02   9.4390e-01   9.6000e-03   4.6500e-02
 
 % Think about improving your classifier further :)
+% RT: Possible improvement using LDA instead of PCA
+tveclda = ldaTransform(tvec, tlab, mu, comp_count);
+tstvlda = ldaTransform(tstv, tstl, mu, comp_count);
+
+disp('LDA OVO40 Train')
+clab = unamvoting(tveclda, ovo);
+cfmx = confMx(tlablda, clab)
+compErrors(cfmx)
