@@ -36,7 +36,7 @@ nclass = plot_ones;
 plot(plot_zeros(:,1), plot_zeros(:,2), "r^", plot_ones(:,1), plot_ones(:,2), "bo")
 hold on
 xs = [-10, 10];
-ys = (-sepplane(2) * x_vals - sepplane(1)) / sepplane(3);
+ys = (-sepplane(2) * xs - sepplane(1)) / sepplane(3);
 plot(xs, ys, 'LineWidth', 2, 'b:')
 
 % Add legend
