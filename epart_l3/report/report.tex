@@ -62,6 +62,7 @@ In this report, class 1 corresponds to digit 0, as the data set is shifted by on
 \end{center}
 
 \section{One versus One}
+\textit{Note: Error rates below are calculated as (FP + FN) / TP + FP + FN}
 \subsection{Original Data Set}
 \subsubsection{Training}
 \begin{center}
@@ -91,7 +92,21 @@ In this report, class 1 corresponds to digit 0, as the data set is shifted by on
     \hline
   \end{tabular}
 \end{center}
-\
+
+\begin{center}
+  \begin{tabular}{|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|}
+    \hline
+    \textbf{Class} & \textbf{0} & \textbf{1} & \textbf{2} & \textbf{3} & \textbf{4} & \textbf{5} & \textbf{6} & \textbf{7} & \textbf{8} & \textbf{9} \\
+    \hline
+    \textbf{FP} & 114 & 118 & 364 & 490 & 288 & 529 & 220 & 321 & 468 & 432 \\
+    \hline
+    \textbf{FN} & 229 & 255 & 572 & 666 & 448 & 719 & 338 & 471 & 753 & 748 \\
+    \hline
+    \textbf{Error Rate} & 0.0579 & 0.0576 & 0.1474 & 0.1757 & 0.1204 & 0.2101 & 0.0900 & 0.1201 & 0.1905 & 0.1841 \\
+    \hline
+  \end{tabular}
+\end{center}
+
 \begin{center}
   \begin{tabular}{|p{5cm}|p{3cm}|p{3cm}|}
     \hline
@@ -129,6 +144,30 @@ In this report, class 1 corresponds to digit 0, as the data set is shifted by on
   \hline
   \end{tabular}
 \end{center}
+
+\begin{center}
+  \begin{tabular}{|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|}
+    \hline
+    \textbf{Class} & \textbf{0} & \textbf{1} & \textbf{2} & \textbf{3} & \textbf{4} & \textbf{5} & \textbf{6} & \textbf{7} & \textbf{8} & \textbf{9} \\
+    \hline
+    \textbf{FP} & 27 & 17 & 50 & 97 & 61 & 74 & 31 & 52 & 78 & 57 \\
+    \hline
+    \textbf{FN} & 31 & 36 & 86 & 90 & 69 & 123 & 53 & 90 & 122 & 129 \\
+    \hline
+    \textbf{Error Rate} & 0.0577 & 0.0468 & 0.1258 & 0.1688 & 0.1242 & 0.2033 & 0.0848 & 0.1322 & 0.1908 & 0.1743 \\
+    \hline
+  \end{tabular}
+\end{center}
+
+\begin{center}
+  \begin{tabular}{|p{5cm}|p{3cm}|p{3cm}|}
+    \hline
+    \textbf{Correct Classifications} & \textbf{Errors} & \textbf{Rejections} \\
+    \hline
+    0.917100 & 0.055200 & 0.027700 \\
+    \hline
+  \end{tabular}
+\end{center}
 \subsection{Extended Data Set}
 \subsubsection{Training}
 \begin{center}
@@ -158,6 +197,30 @@ In this report, class 1 corresponds to digit 0, as the data set is shifted by on
     \hline
   \end{tabular}
 \end{center}
+
+\begin{center}
+  \begin{tabular}{|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|}
+    \hline
+    \textbf{Class} & \textbf{0} & \textbf{1} & \textbf{2} & \textbf{3} & \textbf{4} & \textbf{5} & \textbf{6} & \textbf{7} & \textbf{8} & \textbf{9} \\
+    \hline
+    \textbf{FP} & 9 & 26 & 5 & 4 & 27 & 12 & 9 & 31 & 7 & 27 \\
+    \hline
+    \textbf{FN} & 10 & 45 & 14 & 17 & 35 & 10 & 16 & 25 & 17 & 43 \\
+    \hline
+    \textbf{Error Rate} & 0.0032 & 0.0106 & 0.0032 & 0.0034 & 0.0106 & 0.0041 & 0.0042 & 0.0089 & 0.0041 & 0.0118 \\
+    \hline
+  \end{tabular}
+\end{center}
+
+\begin{center}
+  \begin{tabular}{|p{5cm}|p{3cm}|p{3cm}|}
+    \hline
+    \textbf{Correct Classifications} & \textbf{Errors} & \textbf{Rejections} \\
+    \hline
+    0.996130 & 0.002617 & 0.001250 \\
+    \hline
+  \end{tabular}
+\end{center}
 \subsubsection{Testing}
 \begin{center}
   \begin{tabular}{|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1.7cm}|}
@@ -183,6 +246,30 @@ In this report, class 1 corresponds to digit 0, as the data set is shifted by on
     \textbf{8} & 2 & 0 & 3 & 11 & 1 & 4 & 2 & 3 & 930 & 2 & 16 \\
     \hline
     \textbf{9} & 0 & 2 & 2 & 4 & 5 & 3 & 1 & 2 & 0 & 971 & 19 \\
+    \hline
+  \end{tabular}
+\end{center}
+
+\begin{center}
+  \begin{tabular}{|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|}
+    \hline
+    \textbf{Class} & \textbf{0} & \textbf{1} & \textbf{2} & \textbf{3} & \textbf{4} & \textbf{5} & \textbf{6} & \textbf{7} & \textbf{8} & \textbf{9} \\
+    \hline
+    \textbf{FP} & 16 & 9 & 18 & 31 & 18 & 18 & 20 & 17 & 24 & 32 \\
+    \hline
+    \textbf{FN} & 14 & 17 & 34 & 39 & 35 & 42 & 28 & 48 & 44 & 38 \\
+    \hline
+    \textbf{Error Rate} & 0.0306 & 0.0229 & 0.0498 & 0.0677 & 0.0529 & 0.0658 & 0.0484 & 0.0628 & 0.0688 & 0.0678 \\
+    \hline
+  \end{tabular}
+\end{center}
+
+\begin{center}
+  \begin{tabular}{|p{5cm}|p{3cm}|p{3cm}|}
+    \hline
+    \textbf{Correct Classifications} & \textbf{Errors} & \textbf{Rejections} \\
+    \hline
+    0.966100 & 0.020500 & 0.013400 \\
     \hline
   \end{tabular}
 \end{center}
@@ -216,6 +303,30 @@ In this report, class 1 corresponds to digit 0, as the data set is shifted by on
     \hline
   \end{tabular}
 \end{center}
+
+\begin{center}
+  \begin{tabular}{|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|}
+    \hline
+    \textbf{Class} & \textbf{0} & \textbf{1} & \textbf{2} & \textbf{3} & \textbf{4} & \textbf{5} & \textbf{6} & \textbf{7} & \textbf{8} & \textbf{9} \\
+    \hline
+    \textbf{FP} & 108 & 120 & 195 & 231 & 181 & 688 & 142 & 157 & 338 & 529 \\
+    \hline
+    \textbf{FN} & 1205 & 945 & 1510 & 2344 & 1692 & 1862 & 936 & 1767 & 2236 & 1443 \\
+    \hline
+    \textbf{Error Rate} & 0.2191 & 0.1571 & 0.2766 & 0.4057 & 0.3115 & 0.4177 & 0.1771 & 0.2990 & 0.4157 & 0.3041 \\
+    \hline
+  \end{tabular}
+\end{center}
+
+\begin{center}
+  \begin{tabular}{|p{5cm}|p{3cm}|p{3cm}|}
+    \hline
+    \textbf{Correct Classifications} & \textbf{Errors} & \textbf{Rejections} \\
+    \hline
+    0.734333 & 0.044817 & 0.220850 \\
+    \hline
+  \end{tabular}
+\end{center}
 \subsubsection{Testing}
 \begin{center}
   \begin{tabular}{|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1.7cm}|}
@@ -241,6 +352,30 @@ In this report, class 1 corresponds to digit 0, as the data set is shifted by on
     \textbf{8} & 7 & 2 & 4 & 10 & 4 & 21 & 4 & 3 & 604 & 6 & 309 \\
     \hline
     \textbf{9} & 2 & 1 & 2 & 2 & 12 & 10 & 0 & 7 & 2 & 744 & 227 \\
+    \hline
+  \end{tabular}
+\end{center}
+
+\begin{center}
+  \begin{tabular}{|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|}
+    \hline
+    \textbf{Class} & \textbf{0} & \textbf{1} & \textbf{2} & \textbf{3} & \textbf{4} & \textbf{5} & \textbf{6} & \textbf{7} & \textbf{8} & \textbf{9} \\
+    \hline
+    \textbf{FP} & 26 & 10 & 30 & 34 & 27 & 94 & 33 & 29 & 65 & 66 \\
+    \hline
+    \textbf{FN} & 174 & 155 & 282 & 364 & 269 & 298 & 155 & 311 & 370 & 265 \\
+    \hline
+    \textbf{Error Rate} & 0.1985 & 0.1431 & 0.2933 & 0.3817 & 0.2932 & 0.3943 & 0.1906 & 0.3212 & 0.4182 & 0.3086 \\
+    \hline
+  \end{tabular}
+\end{center}
+
+\begin{center}
+  \begin{tabular}{|p{5cm}|p{3cm}|p{3cm}|}
+    \hline
+    \textbf{Correct Classifications} & \textbf{Errors} & \textbf{Rejections} \\
+    \hline
+    0.735700 & 0.041400 & 0.222900 \\
     \hline
   \end{tabular}
 \end{center}
@@ -274,6 +409,30 @@ In this report, class 1 corresponds to digit 0, as the data set is shifted by on
     \hline
   \end{tabular}
 \end{center}
+
+\begin{center}
+  \begin{tabular}{|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|}
+    \hline
+    \textbf{Class} & \textbf{0} & \textbf{1} & \textbf{2} & \textbf{3} & \textbf{4} & \textbf{5} & \textbf{6} & \textbf{7} & \textbf{8} & \textbf{9} \\
+    \hline
+    \textbf{FP} & 17 & 20 & 42 & 31 & 23 & 45 & 17 & 52 & 22 & 55 \\
+    \hline
+    \textbf{FN} & 129 & 150 & 216 & 266 & 229 & 260 & 134 & 226 & 361 & 274 \\
+    \hline
+    \textbf{Error Rate} & 0.0249 & 0.0256 & 0.0447 & 0.0487 & 0.0430 & 0.0559 & 0.0259 & 0.0439 & 0.0654 & 0.0559 \\
+    \hline
+  \end{tabular}
+\end{center}
+
+\begin{center}
+  \begin{tabular}{|p{5cm}|p{3cm}|p{3cm}|}
+    \hline
+    \textbf{Correct Classifications} & \textbf{Errors} & \textbf{Rejections} \\
+    \hline
+    0.962580 & 0.005400 & 0.032017 \\
+    \hline
+  \end{tabular}
+\end{center}
 \subsubsection{Testing}
 \begin{center}
   \begin{tabular}{|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1.7cm}|}
@@ -302,6 +461,30 @@ In this report, class 1 corresponds to digit 0, as the data set is shifted by on
     \hline
   \end{tabular}
 \end{center}
+
+\begin{center}
+  \begin{tabular}{|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|}
+    \hline
+    \textbf{Class} & \textbf{0} & \textbf{1} & \textbf{2} & \textbf{3} & \textbf{4} & \textbf{5} & \textbf{6} & \textbf{7} & \textbf{8} & \textbf{9} \\
+    \hline
+    \textbf{FP} & 8 & 6 & 7 & 11 & 11 & 5 & 9 & 7 & 7 & 17 \\
+    \hline
+    \textbf{FN} & 33 & 29 & 59 & 63 & 57 & 70 & 51 & 71 & 85 & 66 \\
+    \hline
+    \textbf{Error Rate} & 0.0414 & 0.0309 & 0.0632 & 0.0729 & 0.0681 & 0.0837 & 0.0611 & 0.0758 & 0.0934 & 0.0814 \\
+    \hline
+  \end{tabular}
+\end{center}
+
+\begin{center}
+  \begin{tabular}{|p{5cm}|p{3cm}|p{3cm}|}
+    \hline
+    \textbf{Correct Classifications} & \textbf{Errors} & \textbf{Rejections} \\
+    \hline
+    0.941600 & 0.008700 & 0.049700 \\
+    \hline
+  \end{tabular}
+\end{center}
 \section{Further Improvements}
 For further classification improvements, I began by thinking big.
 I spent few hours trying to implement LDA transformation, but it proved too much of a hassle, with many code changes required.
@@ -314,7 +497,6 @@ Classification accuracy is the metric of choice.
 As now there are 50 primary components, extension results in 1275 total features.
 Thus, the new ensemble is shortly named \textit{OVO1275}
 Here are the results:
-S
 
 Similar improvements were observed in all the other ensemble methods, for both original and extended data sets.
 However, as this is a brute force method, the training time is even longer than before.
