@@ -26,23 +26,23 @@ tvec = pcaTransform(tvec, mu, trmx);
 tstv = pcaTransform(tstv, mu, trmx);
 
 % Perceptron Graph:
-plot_zeros = tvec(tlab == 1, 1:2)(1:40, :);
-plot_ones = tvec(tlab == 2, 1:2)(1:40, :);
-pclass = plot_zeros;
-nclass = plot_ones;
+%%plot_zeros = tvec(tlab == 1, 1:2)(1:40, :);
+%%plot_ones = tvec(tlab == 2, 1:2)(1:40, :);
+%%pclass = plot_zeros;
+%%nclass = plot_ones;
 
-[sepplane, mispos, misneg] = perceptron_fixed(pclass, nclass);
+%%[sepplane, mispos, misneg] = perceptron_fixed(pclass, nclass);
 
-plot(plot_zeros(:,1), plot_zeros(:,2), "r^", plot_ones(:,1), plot_ones(:,2), "bo")
-hold on
-xs = [-10, 10];
-ys = (-sepplane(2) * xs - sepplane(1)) / sepplane(3);
-plot(xs, ys, 'LineWidth', 2, 'b:')
+%%plot(plot_zeros(:,1), plot_zeros(:,2), "r^", plot_ones(:,1), plot_ones(:,2), "bo")
+%%hold on
+%%xs = [-10, 10];
+%%ys = (-sepplane(2) * xs - sepplane(1)) / sepplane(3);
+%%plot(xs, ys, 'LineWidth', 2, 'b:')
 
 % Add legend
-legend('Number 0', 'Number 1', 'Separating Line', 'Location', 'northeast')
+%%legend('Number 0', 'Number 1', 'Separating Line', 'Location', 'northeast')
 
-hold off
+%%hold off
 
 % Now experiment with the learning rate
 % It make sense to use "easy" (0 vs. 1) and "difficult" (4 vs. 9) cases.
@@ -86,18 +86,18 @@ end
 save ovo40errors.txt ovo40errors
 
 % check your ensemble on train set
-disp('OVO40 Train')
-clab = unamvoting(tvec, ovo);
-cfmx = confMx(tlab, clab)
-compErrors(cfmx)
+%%disp('OVO40 Train')
+%%clab = unamvoting(tvec, ovo);
+%%cfmx = confMx(tlab, clab)
+%%compErrors(cfmx)
 
 % Training   0.914700   0.055683   0.029617
 
 % repeat on test set
-disp('OVO40 Test')
-clab = unamvoting(tstv, ovo);
-cfmx = confMx(tstl, clab)
-compErrors(cfmx)
+%%disp('OVO40 Test')
+%%clab = unamvoting(tstv, ovo);
+%%cfmx = confMx(tstl, clab)
+%%compErrors(cfmx)
 
 % Test  0.918000   0.055500   0.026500
 
@@ -108,18 +108,18 @@ compErrors(cfmx)
 [ovr ovr40errors] = trainOVRensemble(tvec, tlab, @perceptron_fixed);
 save ovr40errors.txt ovr40errors
 
-disp('OVR40 Train')
-clab = unamvoting(tvec, ovr);
-cfmx = confMx(tlab, clab)
-compErrors(cfmx)
+%%disp('OVR40 Train')
+%%clab = unamvoting(tvec, ovr);
+%%cfmx = confMx(tlab, clab)
+%%compErrors(cfmx)
 
 % ovr training set cfs              %testing set cfs
 % 0.733967   0.044417   0.221617    0.739200   0.042500   0.218300
 
-disp('OVR40 Test')
-clab = unamvoting(tstv, ovr);
-cfmx = confMx(tstl, clab)
-compErrors(cfmx)
+%%disp('OVR40 Test')
+%%clab = unamvoting(tstv, ovr);
+%%cfmx = confMx(tstl, clab)
+%%compErrors(cfmx)
 
 % expand features
 trainExp = expandFeatures(tvec);
@@ -135,15 +135,15 @@ load ovoExp.txt;
 load ovo860errors.txt;
 
 % train
-disp('OVO860 Train')
-clab = unamvoting(trainExp, ovoExp);
-cfmx = confMx(tlab, clab)
-compErrors(cfmx)
+%%disp('OVO860 Train')
+%%clab = unamvoting(trainExp, ovoExp);
+%%cfmx = confMx(tlab, clab)
+%%compErrors(cfmx)
 % test
-disp('OVO860 Test')
-clab = unamvoting(testExp, ovoExp);
-cfmx = confMx(tstl, clab)
-compErrors(cfmx)
+%%disp('OVO860 Test')
+%%clab = unamvoting(testExp, ovoExp);
+%%cfmx = confMx(tstl, clab)
+%%compErrors(cfmx)
 
 %    ovoExp training set cfs                %ovoExp testing set cfs
 %    9.9662e-01   2.2667e-03   1.1167e-03
@@ -159,17 +159,71 @@ load ovrExp.txt;
 load ovr860errors.txt;
 
 % train
-disp('OVR860 Train')
-clab = unamvoting(trainExp, ovrExp);
-cfmx = confMx(tlab, clab)
-compErrors(cfmx)
+%%disp('OVR860 Train')
+%%clab = unamvoting(trainExp, ovrExp);
+%%cfmx = confMx(tlab, clab)
+%%compErrors(cfmx)
 % test
-disp('OVR860 Test')
-clab = unamvoting(testExp, ovrExp);
-cfmx = confMx(tstl, clab)
-compErrors(cfmx)
+%%disp('OVR860 Test')
+%%clab = unamvoting(testExp, ovrExp);
+%%cfmx = confMx(tstl, clab)
+%%compErrors(cfmx)
 
 %    ovrExp training set cfs                %ovrExp testing set cfs
 %    9.6613e-01   5.1667e-03   2.8700e-02   9.4390e-01   9.6000e-03   4.6500e-02
 
 % Think about improving your classifier further :)
+
+%% RT: Balanced dataset for OVR
+min_samples = min(hist(tlab, unique(tlab)));
+tvec_bal = [];
+tlab_bal = [];
+
+for label = unique(tlab)'
+  idx = find(tlab == label);
+  idx = idx(randperm(length(idx), min_samples));
+  tvec_bal = [tvec_bal; tvec(idx, :)];
+  tlab_bal = [tlab_bal; tlab(idx)];
+end
+
+labels = unique(tlab_bal)';
+% Equal prioris <-> equal number of samples
+% 5421 of each
+[labels; sum(tlab_bal == labels)]
+
+% Train and test the OVR ensemble
+[ovrbal ovrbal40errors] = trainOVRensemble(tvec_bal, tlab_bal, @perceptron_fixed);
+save ovr40balerrors.txt ovr40balerrors
+
+disp('OVR40BAL Train')
+clab = unamvoting(tvec_bal, ovr);
+cfmx = confMx(tlab_bal, clab)
+compErrors(cfmx)
+
+disp('OVR40BAL Test')
+clab = unamvoting(tstv, ovr);
+cfmx = confMx(tstl, clab)
+compErrors(cfmx)
+
+% expand features
+trainExpBal = expandFeatures(tvec_bal);
+
+% Train and test the OVO ensemble on the expanded features
+if exist('ovoExpBal.txt', 'file') == 0
+  [ovoExpBal ovo860Balerrors] = trainOVOensemble(trainExpBal, tlab_bal, @perceptron_fixed);
+  save ovo860Balerrors.txt ovo860Balerrors
+  save ovoExpBal.txt ovoExpBal
+end
+load ovoExpBal.txt;
+load ovo860Balerrors.txt;
+
+% train
+disp('OVO860Bal Train')
+clab = unamvoting(trainExpBal, ovoExpBal);
+cfmx = confMx(tlab_bal, clab)
+compErrors(cfmx)
+% test
+disp('OVO860 Test')
+clab = unamvoting(testExp, ovoExpBal);
+cfmx = confMx(tstl, clab)
+compErrors(cfmx)
