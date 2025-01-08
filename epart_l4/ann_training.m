@@ -6,24 +6,6 @@ tstl += 1;
 [unique(tlab)'; sum(tlab == unique(tlab)')]
 [unique(tstl)'; sum(tstl == unique(tstl)')]
 
-% displaying 100 images of fashion items
-% not really needed in training
-% graphics_toolkit("gnuplot")
-
-imsize = 28;
-fim = zeros((imsize + 2) * 10 + 2);
-
-for clid = 1:10
-  rowid = (clid - 1) * (imsize + 2) + 3;
-  clsamples = find(tlab == clid)(1:10);
-  for spid = 1:10
-	colid = (spid - 1) * (imsize + 2) + 3;
-	im = 1-reshape(tvec(clsamples(spid),:), imsize, imsize)';
-	fim(rowid:rowid+imsize-1, colid:colid+imsize-1) = im;
-  end
-end
-imshow(fim)
-
 % if you consider normalization of data 
 % this is proper place to implement it
 
@@ -35,12 +17,15 @@ learningRate = 0.001;
 rand()
 
 % saving state of (pseudo)random number generator
-rndstate = rand("state");
-save rndstate.txt rndstate
-
 % loading state of (pseudo)random number generator
-%load rndstate.txt 
-%rand("state", rndstate);
+% RT: Minor change to not comment out the code :)
+if exist('rndstate.txt ', 'file') == 0
+  rndstate = rand("state");
+  save rndstate.txt rndstate
+else
+  load rndstate.txt 
+  rand("state", rndstate);
+end
 
 [hlnn olnn] = crann(columns(tvec), noHiddenNeurons, 10);
 trainError = zeros(1, noEpochs);
@@ -59,7 +44,8 @@ for epoch=1:noEpochs
 	errcf2 = compErrors(cfmx);
 	testError(epoch) = errcf2(2);
 	epochTime = toc();
-	disp([epoch epochTime trainError(epoch) testError(epoch)])
+  %RT: Keep things short
+  fprintf('Epoch: %d, Time: %.2f, Total Error: %.1f, Train Error: %.4f, Test Error: %.4f\n', epoch, epochTime, terr, trainError(epoch), testError(epoch));
 	trReport = [trReport; epoch epochTime trainError(epoch) testError(epoch)];
 	fflush(stdout);
 end
