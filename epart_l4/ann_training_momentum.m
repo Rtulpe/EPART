@@ -13,6 +13,7 @@ tstl += 1;
 noHiddenNeurons = 100;
 noEpochs = 50;
 learningRate = 0.001;
+momentum = 0.90;
 
 rand()
 
@@ -33,7 +34,7 @@ testError = zeros(1, noEpochs);
 trReport = [];
 for epoch=1:noEpochs
 	tic();
-	[hlnn olnn terr] = backprop(tvec, tlab, hlnn, olnn, learningRate);
+	[hlnn olnn terr] = backprop_momentum(tvec, tlab, hlnn, olnn, learningRate, momentum);
 	clsRes = anncls(tvec, hlnn, olnn);
 	cfmx = confMx(tlab, clsRes);
 	errcf = compErrors(cfmx);
@@ -52,7 +53,7 @@ end
 
 % you'll be wise to paramterise this filename not to overwrite
 % the reference result
-save rep_h100_e50_lr0001.txt trReport 
+save rep_h100_e50_lr0001_mo090_norm.txt trReport 
 
 plot(1:50, trainError, 'b', 1:50, testError, 'r')
 xlabel('epoch');

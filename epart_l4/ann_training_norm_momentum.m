@@ -9,10 +9,20 @@ tstl += 1;
 % if you consider normalization of data 
 % this is proper place to implement it
 
+% Standardizing the datasets
+tvec_mean = mean(tvec);
+tvec_std = std(tvec);
+tvec = (tvec - tvec_mean) ./ tvec_std;
+
+tstv_mean = mean(tstv);
+tstv_std = std(tstv);
+tstv = (tstv - tstv_mean) ./ tstv_std;
+
 % reference network architecture & training parameters
-noHiddenNeurons = 100;
-noEpochs = 50;
+noHiddenNeurons = 90;
+noEpochs = 20;
 learningRate = 0.001;
+momentum = 0.90;
 
 rand()
 
@@ -33,7 +43,7 @@ testError = zeros(1, noEpochs);
 trReport = [];
 for epoch=1:noEpochs
 	tic();
-	[hlnn olnn terr] = backprop(tvec, tlab, hlnn, olnn, learningRate);
+	[hlnn olnn terr] = backprop_momentum(tvec, tlab, hlnn, olnn, learningRate, momentum);
 	clsRes = anncls(tvec, hlnn, olnn);
 	cfmx = confMx(tlab, clsRes);
 	errcf = compErrors(cfmx);
@@ -52,9 +62,9 @@ end
 
 % you'll be wise to paramterise this filename not to overwrite
 % the reference result
-save rep_h100_e50_lr0001.txt trReport 
+save rep_h100_e50_lr0001_norm.txt trReport 
 
-plot(1:50, trainError, 'b', 1:50, testError, 'r')
+plot(1:20, trainError, 'b', 1:20, testError, 'r')
 xlabel('epoch');
 ylabel('error');
 title ("training and testing error during backprop");

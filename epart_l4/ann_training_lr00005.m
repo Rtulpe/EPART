@@ -12,7 +12,7 @@ tstl += 1;
 % reference network architecture & training parameters
 noHiddenNeurons = 100;
 noEpochs = 50;
-learningRate = 0.001;
+learningRate = 0.0005;
 
 rand()
 
@@ -52,7 +52,7 @@ end
 
 % you'll be wise to paramterise this filename not to overwrite
 % the reference result
-save rep_h100_e50_lr0001.txt trReport 
+save rep_h100_e50_lr00005.txt trReport 
 
 plot(1:50, trainError, 'b', 1:50, testError, 'r')
 xlabel('epoch');
