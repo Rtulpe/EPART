@@ -62,7 +62,7 @@ end
 
 % you'll be wise to paramterise this filename not to overwrite
 % the reference result
-save rep_h100_e50_lr0001_norm.txt trReport 
+save rep_h100_e50_lr0001_mo09_norm.txt trReport 
 
 plot(1:20, trainError, 'b', 1:20, testError, 'r')
 xlabel('epoch');
